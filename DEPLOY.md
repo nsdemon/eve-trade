@@ -4,11 +4,13 @@ Deploy the EVE Trade Explorer to [Vercel](https://vercel.com) so you can open it
 
 ## If you get 404 NOT_FOUND
 
-1. **Check the build**  
-   Vercel → your project → **Deployments** → open the latest deployment → **Building**.  
-   Confirm the build finishes and that the output is in `dist` (no errors).
+1. **Root Directory must be blank**  
+   **Settings** → **General** → **Root Directory.** Leave it **empty**. If it’s set to any folder, clear it and redeploy (this is a very common cause of 404).
 
-2. **Test the API**  
+2. **Check the build**  
+   **Deployments** → latest deployment → **Building**. The log should show the build succeeding. If the build fails, the site will 404.
+
+3. **Test the API**  
    Open: `https://YOUR-PROJECT.vercel.app/api/hello`  
    - If you see `{"ok":true,"message":"API is working"}` → the API is fine; the 404 is likely the frontend (root).
    - If that URL also 404s → the `api` folder may not be deployed, or the project’s **Root Directory** might be wrong in Vercel (leave it blank so the repo root is used).

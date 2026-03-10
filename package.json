@@ -4,7 +4,7 @@
   "description": "EVE Online trade data explorer with filters, graphs, and top items by region",
   "type": "module",
   "scripts": {
-    "build": "vite build",
+    "build": "vite build && node -e \"require('fs').copyFileSync('dist/index.html','dist/404.html')\"",
     "start": "npm run build && node server/index.js",
     "dev": "vite",
     "server": "node server/index.js"
