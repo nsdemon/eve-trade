@@ -4,9 +4,23 @@ Deploy the EVE Trade Explorer to [Vercel](https://vercel.com) so you can open it
 
 ## If you get 404 NOT_FOUND
 
-- **Build:** In the Vercel project, open the latest **Deployment** and check the **Building** log. Ensure `npm run build` succeeds and outputs the `dist` folder.
-- **Root:** Open `https://your-project.vercel.app/` (with trailing slash is fine). If that 404s, try `https://your-project.vercel.app/index.html`; if that works, the API/rewrite fix may be needed (see below).
-- **Redeploy:** After pulling the latest code (path fix for API), trigger a new deploy (e.g. **Redeploy** from the deployment list).
+1. **Check the build**  
+   Vercel → your project → **Deployments** → open the latest deployment → **Building**.  
+   Confirm the build finishes and that the output is in `dist` (no errors).
+
+2. **Test the API**  
+   Open: `https://YOUR-PROJECT.vercel.app/api/hello`  
+   - If you see `{"ok":true,"message":"API is working"}` → the API is fine; the 404 is likely the frontend (root).
+   - If that URL also 404s → the `api` folder may not be deployed, or the project’s **Root Directory** might be wrong in Vercel (leave it blank so the repo root is used).
+
+3. **Check project settings**  
+   **Settings** → **General**:
+   - **Root Directory:** leave empty (or the folder that contains `api/`, `server/`, `package.json`, `vercel.json`).
+   - **Build Command:** `npm run build` (or leave default).
+   - **Output Directory:** `dist`.
+
+4. **Redeploy**  
+   After changing code or settings, use **Deployments** → **⋯** → **Redeploy**.
 
 ## 1. Push your code to GitHub
 

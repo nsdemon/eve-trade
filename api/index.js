@@ -1,15 +1,16 @@
 // Vercel serverless: handle all /api/* and pass through to Express app.
-// Rewrite sends /api/:path* -> /api, so path becomes req.query.path; restore full URL for Express.
+// Rewrite: /api/(.*) -> /api?path=$1 so we restore req.url for Express.
 import app from '../server/index.js';
 
 export default function handler(req, res) {
-  // Restore path: Vercel adds captured :path* as query param "path"
   const path = req.query.path;
-  if (path !== undefined) {
+  if (path !== undefined && path !== '') {
     const rest = { ...req.query };
     delete rest.path;
     const qs = new URLSearchParams(rest).toString();
     req.url = '/api/' + path + (qs ? '?' + qs : '');
+  } else if (!req.url || req.url === '/api' || req.url.startsWith('/api?')) {
+    req.url = req.url || '/api';
   }
   return app(req, res);
 }
