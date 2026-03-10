@@ -409,8 +409,8 @@ export default function App() {
                       <th>Item</th>
                       <th className="num">Lowest</th>
                       <th className="num">Highest</th>
-                      <th className="num">{daytradeView === 'percent' ? 'Profit %' : 'Profit/unit'}</th>
-                      {daytradeView === 'percent' && <th className="num">Profit/unit</th>}
+                      <th className="num">Profit/unit</th>
+                      <th className="num">Profit %</th>
                       <th className="num">Volume</th>
                     </tr>
                   </thead>
@@ -421,12 +421,8 @@ export default function App() {
                         <td>{row.type_name}</td>
                         <td className="num">{formatIsk(row.lowest)}</td>
                         <td className="num">{formatIsk(row.highest)}</td>
-                        <td className="num">
-                          {daytradeView === 'percent'
-                            ? `${(row.profit_pct ?? 0).toFixed(1)}%`
-                            : formatIsk(row.profit_per_unit)}
-                        </td>
-                        {daytradeView === 'percent' && <td className="num">{formatIsk(row.profit_per_unit)}</td>}
+                        <td className="num">{formatIsk(row.profit_per_unit)}</td>
+                        <td className="num">{(row.profit_pct ?? 0).toFixed(1)}%</td>
                         <td className="num">{formatVolume(row.volume)}</td>
                       </tr>
                     ))}
